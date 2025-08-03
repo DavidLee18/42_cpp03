@@ -2,6 +2,7 @@
 #define CLAPTRAP_H
 
 #include "macros.def"
+#include <iostream>
 #include <string>
 
 class ClapTrap {

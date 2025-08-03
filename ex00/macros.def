@@ -152,50 +152,57 @@
 	return *this; \
 	}
 
-#define IMPL_CONS_0(cname, ...) cname::cname(): __VA_ARGS__ {\
+#define IMPL_CONS_0(cname, ...) cname::cname(): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "()" << std::endl; \
 	}
-#define IMPL_CONS_1(cname, param, ...) cname::cname(param): __VA_ARGS__ {\
+#define IMPL_CONS_1(cname, param, ...) cname::cname(param): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "(" << #param << ")" << std::endl; \
 	}
-#define IMPL_CONS_2(cname, param1, param2, ...) cname::cname(param1, param2): __VA_ARGS__ {\
+#define IMPL_CONS_2(cname, param1, param2, ...) cname::cname(param1, param2): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "(" << #param1 << ", " << #param2 << ")" << std::endl; \
 	}
-#define IMPL_CONS_3(cname, param1, param2, param3, ...) cname::cname(param1, param2, param3): __VA_ARGS__ {\
+#define IMPL_CONS_3(cname, param1, param2, param3, ...) cname::cname(param1, param2, param3): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ")" << std::endl; \
 	}
-#define IMPL_CONS_4(cname, param1, param2, param3, param4, ...) cname::cname(param1, param2, param3, param4): __VA_ARGS__ {\
+#define IMPL_CONS_4(cname, param1, param2, param3, param4, ...) cname::cname(param1, param2, param3, param4): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ")" << std::endl; \
 	}
-#define IMPL_CONS_5(cname, param1, param2, param3, param4, param5, ...) cname::cname(param1, param2, param3, param4, param5): __VA_ARGS__ {\
+#define IMPL_CONS_5(cname, param1, param2, param3, param4, param5, ...) cname::cname(param1, param2, param3, param4, param5): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ")" << std::endl; \
 	}
-#define IMPL_CONS_6(cname, param1, param2, param3, param4, param5, param6, ...) cname::cname(param1, param2, param3, param4, param5, param6): __VA_ARGS__ {\
+#define IMPL_CONS_6(cname, param1, param2, param3, param4, param5, param6, ...) cname::cname(param1, param2, param3, param4, param5, param6): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ", " << #param6 << ")" << std::endl; \
 	}
-#define IMPL_CONS_7(cname, param1, param2, param3, param4, param5, param6, param7, ...) cname::cname(param1, param2, param3, param4, param5, param6, param7): __VA_ARGS__ {\
+#define IMPL_CONS_7(cname, param1, param2, param3, param4, param5, param6, param7, ...) cname::cname(param1, param2, param3, param4, param5, param6, param7): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ", " << #param6 << ", " << #param7 << ")" << std::endl; \
 	}
-#define IMPL_CONS_8(cname, param1, param2, param3, param4, param5, param6, param7, param8, ...) cname::cname(param1, param2, param3, param4, param5, param6, param7, param8): __VA_ARGS__ {\
+#define IMPL_CONS_8(cname, param1, param2, param3, param4, param5, param6, param7, param8, ...) cname::cname(param1, param2, param3, param4, param5, param6, param7, param8): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ", " << #param6 << ", " << #param7 << ", " << #param8 << ")" << std::endl; \
 	}
-#define IMPL_CONS_9(cname, param1, param2, param3, param4, param5, param6, param7, param8, param9, ...) cname::cname(param1, param2, param3, param4, param5, param6, param7, param8, param9): __VA_ARGS__ {\
+#define IMPL_CONS_9(cname, param1, param2, param3, param4, param5, param6, param7, param8, param9, ...) cname::cname(param1, param2, param3, param4, param5, param6, param7, param8, param9): IMPL_INIT_LIST(__VA_ARGS__) {\
 	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ", " << #param6 << ", " << #param7 << ", " << #param8 << ", " << #param9 << ")" << std::endl; \
 	}
 
-#define SEP_NARG(...) /* TODO */
+#define DROP_0(...) __VA_ARGS__
+#define DROP_1(param, ...) DROP_0(__VA_ARGS__)
+#define DROP_2(param, ...) DROP_1(__VA_ARGS__)
+#define DROP_3(param, ...) DROP_2(__VA_ARGS__)
+#define DROP_4(param, ...) DROP_3(__VA_ARGS__)
+#define DROP_5(param, ...) DROP_4(__VA_ARGS__)
+#define DROP_6(param, ...) DROP_5(__VA_ARGS__)
+#define DROP_7(param, ...) DROP_6(__VA_ARGS__)
+#define DROP_8(param, ...) DROP_7(__VA_ARGS__)
+#define DROP_9(param, ...) DROP_8(__VA_ARGS__)
 
-#define DROP_TIL_SEP(...) /* TODO */
+#define DROP(N, ...) CONCATENATE(DROP_, N)(__VA_ARGS__)
 
-#define IMPL_CONS_(N, cname, ...) \
-	CONCATENATE(IMPL_CONS_, N)(cname, IMPL_INIT_LIST(__VA_ARGS__))
-#define IMPL_CONS(cname, ...) \
-	IMPL_CONS_(SEP_NARG(__VA_ARGS__), cname, DROP_TIL_SEP(__VA_ARGS__))
+#define IMPL_CONS(cname, N, ...) \
+	CONCATENATE(IMPL_CONS_, N)(cname, __VA_ARGS__)
 
 #define IMPL_OCF(cname, param, ...) \
 	IMPL_CONS(cname, __VA_ARGS__) \
-	IMPL_CONS_COPY_ODD(cname, param, DROP_TIL_SEP(__VA_ARGS__)) \
-	IMPL_ASSIGN_ODD(cname, param, DROP_TIL_SEP(__VA_ARGS__)) \
+	IMPL_CONS_COPY_ODD(cname, param, DROP(__VA_ARGS__)) \
+	IMPL_ASSIGN_ODD(cname, param, DROP(__VA_ARGS__)) \
 	IMPL_DES(cname)
 
 #define BOOL_OP_FIELD_1(param, op, field) (this->field op param.field)
