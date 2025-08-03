@@ -17,6 +17,11 @@
 	cname& operator=(const cname&); \
 	~cname();
 
+#define DEF_OCF_(cname, ...) cname(__VA_ARGS__); \
+	cname(const cname&); \
+	cname& operator=(const cname&); \
+	~cname();
+
 #define DEF_SHOW(cname) std::ostream& operator<<(std::ostream&, const cname&);
 
 #define DEF_EQ(cname) bool operator==(const cname&) const; \
@@ -58,18 +63,14 @@
 	this->field = param; \
 	}
 
-#define IMPL_CONS0(cname, ...) cname::cname(): __VA_ARGS__ {\
-	std::cout << #cname << "()" << std::endl; \
+#define IMPL_DES(cname) cname::~cname() { \
+	std::cout << "~" << #cname << "()" << std::endl; \
 	}
 
 #define RSEQ_N() 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
 #define ARG_N(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, N, ...) N
 #define NARG_(...) ARG_N(__VA_ARGS__)
 #define NARG(...) NARG_(__VA_ARGS__, RSEQ_N())
-
-#define IMPL_DES(cname) cname::~cname() { \
-	std::cout << "~" << #cname << "()" << std::endl; \
-	}
 
 #define IMPL_INIT_LIST_1(field, val) field(val)
 #define IMPL_INIT_LIST_2(field, val, ...) field(val), IMPL_INIT_LIST_1(__VA_ARGS__)
@@ -151,10 +152,50 @@
 	return *this; \
 	}
 
+#define IMPL_CONS_0(cname, ...) cname::cname(): __VA_ARGS__ {\
+	std::cout << #cname << "()" << std::endl; \
+	}
+#define IMPL_CONS_1(cname, param, ...) cname::cname(param): __VA_ARGS__ {\
+	std::cout << #cname << "(" << #param << ")" << std::endl; \
+	}
+#define IMPL_CONS_2(cname, param1, param2, ...) cname::cname(param1, param2): __VA_ARGS__ {\
+	std::cout << #cname << "(" << #param1 << ", " << #param2 << ")" << std::endl; \
+	}
+#define IMPL_CONS_3(cname, param1, param2, param3, ...) cname::cname(param1, param2, param3): __VA_ARGS__ {\
+	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ")" << std::endl; \
+	}
+#define IMPL_CONS_4(cname, param1, param2, param3, param4, ...) cname::cname(param1, param2, param3, param4): __VA_ARGS__ {\
+	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ")" << std::endl; \
+	}
+#define IMPL_CONS_5(cname, param1, param2, param3, param4, param5, ...) cname::cname(param1, param2, param3, param4, param5): __VA_ARGS__ {\
+	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ")" << std::endl; \
+	}
+#define IMPL_CONS_6(cname, param1, param2, param3, param4, param5, param6, ...) cname::cname(param1, param2, param3, param4, param5, param6): __VA_ARGS__ {\
+	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ", " << #param6 << ")" << std::endl; \
+	}
+#define IMPL_CONS_7(cname, param1, param2, param3, param4, param5, param6, param7, ...) cname::cname(param1, param2, param3, param4, param5, param6, param7): __VA_ARGS__ {\
+	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ", " << #param6 << ", " << #param7 << ")" << std::endl; \
+	}
+#define IMPL_CONS_8(cname, param1, param2, param3, param4, param5, param6, param7, param8, ...) cname::cname(param1, param2, param3, param4, param5, param6, param7, param8): __VA_ARGS__ {\
+	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ", " << #param6 << ", " << #param7 << ", " << #param8 << ")" << std::endl; \
+	}
+#define IMPL_CONS_9(cname, param1, param2, param3, param4, param5, param6, param7, param8, param9, ...) cname::cname(param1, param2, param3, param4, param5, param6, param7, param8, param9): __VA_ARGS__ {\
+	std::cout << #cname << "(" << #param1 << ", " << #param2 << ", " << #param3 << ", " << #param4 << ", " << #param5 << ", " << #param6 << ", " << #param7 << ", " << #param8 << ", " << #param9 << ")" << std::endl; \
+	}
+
+#define SEP_NARG(...) /* TODO */
+
+#define DROP_TIL_SEP(...) /* TODO */
+
+#define IMPL_CONS_(N, cname, ...) \
+	CONCATENATE(IMPL_CONS_, N)(cname, IMPL_INIT_LIST(__VA_ARGS__))
+#define IMPL_CONS(cname, ...) \
+	IMPL_CONS_(SEP_NARG(__VA_ARGS__), cname, DROP_TIL_SEP(__VA_ARGS__))
+
 #define IMPL_OCF(cname, param, ...) \
-	IMPL_CONS0(cname, IMPL_INIT_LIST(__VA_ARGS__)) \
-	IMPL_CONS_COPY_ODD(cname, param, __VA_ARGS__) \
-	IMPL_ASSIGN_ODD(cname, param, __VA_ARGS__) \
+	IMPL_CONS(cname, __VA_ARGS__) \
+	IMPL_CONS_COPY_ODD(cname, param, DROP_TIL_SEP(__VA_ARGS__)) \
+	IMPL_ASSIGN_ODD(cname, param, DROP_TIL_SEP(__VA_ARGS__)) \
 	IMPL_DES(cname)
 
 #define BOOL_OP_FIELD_1(param, op, field) (this->field op param.field)
