@@ -12,6 +12,7 @@ int main() {
 	b.beRepaired(99);
 	b.takeDamage(100);
 	b.takeDamage(1);
+	b.highFivesGuys();
 
 	return 0;
 }

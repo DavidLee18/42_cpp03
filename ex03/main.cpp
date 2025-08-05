@@ -1,8 +1,8 @@
-#include "ScavTrap.h"
+#include "DiamondTrap.h"
 
 int main() {
-	ScavTrap a("a");
-	ScavTrap b("b");
+	DiamondTrap a("a");
+	DiamondTrap b("b");
 
 	for (size_t i = 0; i < 50; i++)
 		a.attack("b");
@@ -13,6 +13,8 @@ int main() {
 	b.takeDamage(100);
 	b.takeDamage(1);
 	b.guardGate();
+	b.highFivesGuys();
+	b.whoami();
 
 	return 0;
 }
