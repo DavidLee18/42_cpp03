@@ -6,6 +6,7 @@
 class ScavTrap: public ClapTrap {
 	public:
 		DEF_OCF_(ScavTrap, std::string)
+		void attack(const std::string&);
 		void guardGate();
 };
 

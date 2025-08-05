@@ -28,3 +28,15 @@ ScavTrap ::~ScavTrap() {
 void ScavTrap::guardGate() {
 	std::cout << "ScavTrap " << name << "! on your feet!" << std::endl;
 }
+
+void ScavTrap::attack(const std::string& target) {
+	if (hit_points == 0)
+		std::cout << "ScavTrap(" << name << ") can't attack (hp 0)" << std::endl;
+	else if (energy_points == 0)
+		std::cout << "ScavTrap(" << name << ") can't attack (ep 0)" << std::endl;
+	else {
+		std::cout << "attack: ScavTrap(" << name << ") -> " << target
+		<< "(hp -" << attack_damage << ")" << std::endl;
+		energy_points--;
+	}
+}
